@@ -1,0 +1,37 @@
+Source,Target
+3 Cone Drill,40 Yard Dash
+3 Cone Drill,Height
+games,seasons
+games,pass_defended
+games,fumbles_rec
+games,fumbles_rec_td
+def_int,pass_defended
+Broad Jump,seasons
+Shuttle,Height
+Shuttle,40 Yard Dash
+Shuttle,3 Cone Drill
+rec,rec_yds
+rec_yds,rec_td
+rec_yds,scrim_yds_per_att
+rec_yds,scrim_yds
+scrim_yds_per_att,rec_yds_per_rec
+rush_att,rush_yds
+rush_yds,scrim_yds
+scrim_att,rush_att
+rush_td,rush_att
+rush_td,rush_yds
+fumbles_forced,fumbles_rec
+fumbles_forced,fumbles_rec_td
+sacks,tackles_loss
+fumbles_rec_yds,fumbles_rec_td
+scrim_td,rec
+Pick,Round
+tackles_solo,tackles_assists
+tackles_total,tackles_assists
+tackles_total,tackles_solo
+def_int_td,def_int
+def_int_td,def_int_yds
+def_int_yds,def_int
+Bench Press,sacks
+Vertical Jump,Broad Jump
+Weight,Bench Press
