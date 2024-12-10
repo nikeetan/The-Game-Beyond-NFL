@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 750px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "3 Cone Drill", "label": "3 Cone Drill", "shape": "dot"}, {"color": "#97c2fc", "id": "40 Yard Dash", "label": "40 Yard Dash", "shape": "dot"}, {"color": "#97c2fc", "id": "games", "label": "games", "shape": "dot"}, {"color": "#97c2fc", "id": "seasons", "label": "seasons", "shape": "dot"}, {"color": "#97c2fc", "id": "def_int", "label": "def_int", "shape": "dot"}, {"color": "#97c2fc", "id": "pass_defended", "label": "pass_defended", "shape": "dot"}, {"color": "#97c2fc", "id": "Broad Jump", "label": "Broad Jump", "shape": "dot"}, {"color": "#97c2fc", "id": "Shuttle", "label": "Shuttle", "shape": "dot"}, {"color": "#97c2fc", "id": "Height", "label": "Height", "shape": "dot"}, {"color": "#97c2fc", "id": "rec", "label": "rec", "shape": "dot"}, {"color": "#97c2fc", "id": "rec_yds", "label": "rec_yds", "shape": "dot"}, {"color": "#97c2fc", "id": "rec_td", "label": "rec_td", "shape": "dot"}, {"color": "#97c2fc", "id": "scrim_yds_per_att", "label": "scrim_yds_per_att", "shape": "dot"}, {"color": "#97c2fc", "id": "rec_yds_per_rec", "label": "rec_yds_per_rec", "shape": "dot"}, {"color": "#97c2fc", "id": "fumbles_rec", "label": "fumbles_rec", "shape": "dot"}, {"color": "#97c2fc", "id": "rush_att", "label": "rush_att", "shape": "dot"}, {"color": "#97c2fc", "id": "rush_yds", "label": "rush_yds", "shape": "dot"}, {"color": "#97c2fc", "id": "scrim_att", "label": "scrim_att", "shape": "dot"}, {"color": "#97c2fc", "id": "rush_td", "label": "rush_td", "shape": "dot"}, {"color": "#97c2fc", "id": "fumbles_forced", "label": "fumbles_forced", "shape": "dot"}, {"color": "#97c2fc", "id": "sacks", "label": "sacks", "shape": "dot"}, {"color": "#97c2fc", "id": "tackles_loss", "label": "tackles_loss", "shape": "dot"}, {"color": "#97c2fc", "id": "fumbles_rec_yds", "label": "fumbles_rec_yds", "shape": "dot"}, {"color": "#97c2fc", "id": "fumbles_rec_td", "label": "fumbles_rec_td", "shape": "dot"}, {"color": "#97c2fc", "id": "scrim_yds", "label": "scrim_yds", "shape": "dot"}, {"color": "#97c2fc", "id": "scrim_td", "label": "scrim_td", "shape": "dot"}, {"color": "#97c2fc", "id": "Round", "label": "Round", "shape": "dot"}, {"color": "#97c2fc", "id": "Pick", "label": "Pick", "shape": "dot"}, {"color": "#97c2fc", "id": "tackles_assists", "label": "tackles_assists", "shape": "dot"}, {"color": "#97c2fc", "id": "tackles_solo", "label": "tackles_solo", "shape": "dot"}, {"color": "#97c2fc", "id": "tackles_total", "label": "tackles_total", "shape": "dot"}, {"color": "#97c2fc", "id": "def_int_td", "label": "def_int_td", "shape": "dot"}, {"color": "#97c2fc", "id": "def_int_yds", "label": "def_int_yds", "shape": "dot"}, {"color": "#97c2fc", "id": "Bench Press", "label": "Bench Press", "shape": "dot"}, {"color": "#97c2fc", "id": "Vertical Jump", "label": "Vertical Jump", "shape": "dot"}, {"color": "#97c2fc", "id": "Weight", "label": "Weight", "shape": "dot"}, {"color": "#97c2fc", "id": "Position", "label": "Position", "shape": "dot"}, {"color": "#97c2fc", "id": "rush_yds_per_att", "label": "rush_yds_per_att", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "3 Cone Drill", "to": "40 Yard Dash"}, {"arrows": "to", "from": "3 Cone Drill", "to": "Height"}, {"arrows": "to", "from": "games", "to": "seasons"}, {"arrows": "to", "from": "games", "to": "pass_defended"}, {"arrows": "to", "from": "games", "to": "fumbles_rec"}, {"arrows": "to", "from": "games", "to": "fumbles_rec_td"}, {"arrows": "to", "from": "def_int", "to": "pass_defended"}, {"arrows": "to", "from": "Broad Jump", "to": "seasons"}, {"arrows": "to", "from": "Shuttle", "to": "Height"}, {"arrows": "to", "from": "Shuttle", "to": "40 Yard Dash"}, {"arrows": "to", "from": "Shuttle", "to": "3 Cone Drill"}, {"arrows": "to", "from": "rec", "to": "rec_yds"}, {"arrows": "to", "from": "rec_yds", "to": "rec_td"}, {"arrows": "to", "from": "rec_yds", "to": "scrim_yds_per_att"}, {"arrows": "to", "from": "rec_yds", "to": "scrim_yds"}, {"arrows": "to", "from": "scrim_yds_per_att", "to": "rec_yds_per_rec"}, {"arrows": "to", "from": "rush_att", "to": "rush_yds"}, {"arrows": "to", "from": "rush_yds", "to": "scrim_yds"}, {"arrows": "to", "from": "scrim_att", "to": "rush_att"}, {"arrows": "to", "from": "rush_td", "to": "rush_att"}, {"arrows": "to", "from": "rush_td", "to": "rush_yds"}, {"arrows": "to", "from": "fumbles_forced", "to": "fumbles_rec"}, {"arrows": "to", "from": "fumbles_forced", "to": "fumbles_rec_td"}, {"arrows": "to", "from": "sacks", "to": "tackles_loss"}, {"arrows": "to", "from": "fumbles_rec_yds", "to": "fumbles_rec_td"}, {"arrows": "to", "from": "scrim_td", "to": "rec"}, {"arrows": "to", "from": "Pick", "to": "Round"}, {"arrows": "to", "from": "tackles_solo", "to": "tackles_assists"}, {"arrows": "to", "from": "tackles_total", "to": "tackles_assists"}, {"arrows": "to", "from": "tackles_total", "to": "tackles_solo"}, {"arrows": "to", "from": "def_int_td", "to": "def_int"}, {"arrows": "to", "from": "def_int_td", "to": "def_int_yds"}, {"arrows": "to", "from": "def_int_yds", "to": "def_int"}, {"arrows": "to", "from": "Bench Press", "to": "sacks"}, {"arrows": "to", "from": "Vertical Jump", "to": "Broad Jump"}, {"arrows": "to", "from": "Weight", "to": "Bench Press"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"nodes": {"font": {"size": 16, "bold": true}, "shape": "dot", "size": 10}, "edges": {"arrows": {"to": {"enabled": true, "scaleFactor": 1}}, "color": {"inherit": true}, "smooth": {"enabled": false}, "font": {"size": 14, "bold": true}, "length": 200}, "physics": {"enabled": true, "barnesHut": {"gravitationalConstant": -8000, "springLength": 100}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
